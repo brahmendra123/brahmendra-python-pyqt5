@@ -10,7 +10,7 @@ import time
 #import socket
 #import pickle
 import json
-#import requests as req
+import requests as req
  
 class Window(QWidget):
     def __init__(self):
