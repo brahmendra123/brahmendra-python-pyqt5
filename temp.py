@@ -4,13 +4,14 @@ import os, sys
 from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent
 from PyQt5.QtMultimediaWidgets import QVideoWidget
 from PyQt5.QtGui import QIcon, QPalette
-from PyQt5.QtCore import Qt, QUrl, QTimer
+from PyQt5.QtCore import Qt, QUrl, QTimer, QByteArray
 import cv2
 import time
-#import socket
+import socket
 #import pickle
 import json
 import requests as req
+from PyQt5 import  QtNetwork
  
 class Window(QWidget):
     def __init__(self):
@@ -35,11 +36,11 @@ class Window(QWidget):
         
         #data = {'name': 'Peter'}
 
-        #resp = req.post("https://httpbin.org/post", data)
-        #print(resp.text)
+       # resp = req.post("http://192.168.0.34:2000/upload/interview/postdata", data)
+       # print(resp.text)
         
-        #self.clientsocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-        #self.clientsocket.connect(('192.168.0.47',2000))
+       # self.clientsocket = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+       # self.clientsocket.connect(('192.168.0.34',2000))
         
         milli_sec = int(round(time.time() * 1000))
         print(milli_sec)
@@ -79,7 +80,7 @@ class Window(QWidget):
  
         #create button for playing
         self.playBtn = QPushButton()
-        self.playBtn.setEnabled(False)
+        #self.playBtn.setEnabled(False)
         self.playBtn.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay))
         self.playBtn.clicked.connect(self.play_video)
  
@@ -102,7 +103,7 @@ class Window(QWidget):
         hboxLayout.setContentsMargins(0,0,0,0)
  
         #set widgets to the hbox layout
-        hboxLayout.addWidget(openBtn)
+        #hboxLayout.addWidget(openBtn)
         hboxLayout.addWidget(self.videobutton)
         hboxLayout.addWidget(self.playBtn)
         hboxLayout.addWidget(self.slider)
@@ -119,7 +120,8 @@ class Window(QWidget):
         self.setLayout(vboxLayout)
  
         self.mediaPlayer.setVideoOutput(videowidget)
- 
+        
+        self.mediaPlayer.setMedia(QMediaContent(QUrl.fromLocalFile("C:/Users/brahm/OneDrive/Desktop/face exp node/రాష్ట్రపతి పాలన ఎప్పుడు, ఎందుకు విధిస్తారు_ ఆర్టికల్ 356 ఏం చెబుతోంది_ - BBC New.wmv")))
  
         #media player signals
  
@@ -204,6 +206,23 @@ class Window(QWidget):
         
         
         self.out.write(image) 
+        
+        
+        #dtime = int(round(time.time() * 1000))
+        
+        #data = QByteArray()
+        #data.append("name=Peter&")
+        #data.append("age=34")
+        
+        #videofilename = str(dtime)+'.mp4'
+        
+        
+        #data.append('videoname', videofilename);
+        
+        
+        #print("data", data)
+        
+        
         # convert image to RGB format
             
     def record(self):
